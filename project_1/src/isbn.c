@@ -5,6 +5,7 @@
 
 bool read_isbn( char *isbn, int const isbn_capacity );
 void normalize_isbn( char *normalized, char const *const isbn, int const isbn_capacity );
+bool isbn_length_is_valid( char const *const isbn );
 
 int main( void )
 {
@@ -40,4 +41,11 @@ void normalize_isbn( char *normalized, char const *const isbn, int const isbn_ca
     }
 
     normalized[index] = '\0';
+}
+
+bool isbn_length_is_valid( char const *const isbn )
+{
+    int const length = strlen( isbn );
+
+    return length == 10 || length == 13;
 }
