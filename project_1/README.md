@@ -56,7 +56,11 @@ verification_digit=(1 * isbn[0] +
 1 * isbn[10] +
 3 * isbn[11]) % 10
 
-If remainder is 10, verification_digit is X
+verification_digit = 10 - verification_digit
+
 
 Then check
-verification_digit == isbn[9]
+if verification_digit < 10
+  verification_digit == isbn[12]
+else
+  isbn[12] == 0
