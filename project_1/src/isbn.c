@@ -16,6 +16,15 @@ int main( void )
     char isbn[isbn_capacity];
     char normalized_isbn[isbn_capacity];
 
+    read_isbn( isbn, isbn_capacity );
+
+    normalize_isbn( normalized_isbn, isbn, isbn_capacity );
+
+    if( !isbn_is_valid( normalized ) )
+    {
+        printf( "%s is not a valid ISBN\n", isbn );
+        return 1;
+    }
 
     return 0;
 }
