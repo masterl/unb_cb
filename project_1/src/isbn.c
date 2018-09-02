@@ -7,6 +7,7 @@ bool read_isbn( char *isbn, int const isbn_capacity );
 void normalize_isbn( char *normalized, char const *const isbn, int const isbn_capacity );
 bool isbn_length_is_valid( char const *const isbn );
 bool is_valid_10_digit( char const *const isbn );
+bool is_valid_13_digit( char const *const isbn );
 
 int main( void )
 {
@@ -71,4 +72,37 @@ bool is_valid_10_digit( char const *const isbn )
     }
 
     return verification_digit == isbn[9];
+}
+
+bool is_valid_13_digit( char const *const isbn )
+{
+    int verification_digit = 0;
+    int multiplier = 1;
+
+    for( int i = 0; i < 12; ++i )
+    {
+        verification_digit += multiplier * ( isbn[i] - '0' );
+
+        if( multiplier == 1 )
+        {
+            multiplier = 3;
+        }
+        else
+        {
+            multiplier = 1;
+        }
+    }
+    verification_digit %= 10;
+    verification_digit = 10 - verification_digit;
+
+    if( verification_digit == 10 )
+    {
+        verification_digit = '0';
+    }
+    else
+    {
+        verification_digit += '0';
+    }
+
+    return verification_digit == isbn[12];
 }
