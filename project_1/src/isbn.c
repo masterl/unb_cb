@@ -6,6 +6,7 @@
 bool read_isbn( char *isbn, int const isbn_capacity );
 void normalize_isbn( char *normalized, char const *const isbn, int const isbn_capacity );
 bool isbn_length_is_valid( char const *const isbn );
+bool isbn_is_valid( char const *const isbn );
 bool is_valid_10_digit( char const *const isbn );
 bool is_valid_13_digit( char const *const isbn );
 
@@ -50,6 +51,23 @@ bool isbn_length_is_valid( char const *const isbn )
     int const length = strlen( isbn );
 
     return length == 10 || length == 13;
+}
+
+bool isbn_is_valid( char const *const isbn )
+{
+    int const length = strlen( isbn );
+
+    if( !isbn_length_is_valid( isbn ) )
+    {
+        return false;
+    }
+
+    if( length == 10 )
+    {
+        return is_valid_10_digit( isbn );
+    }
+
+    return is_valid_13_digit( isbn );
 }
 
 bool is_valid_10_digit( char const *const isbn )
